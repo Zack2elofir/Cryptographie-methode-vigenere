@@ -1,0 +1,314 @@
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <cstring>
+
+using namespace std;
+string  crypt (string text, string key)
+{
+
+
+    string fullycrypted="";
+  char alphabet[26] = { 'A', 'B', 'C', 'D',
+    'E', 'F', 'G', 'H',
+    'I', 'J', 'K', 'L',
+    'M', 'N', 'O', 'P',
+    'Q', 'R', 'S', 'T',
+    'U', 'V', 'W', 'X',
+    'Y', 'Z'
+  };
+
+  string tobecrypted = "";
+
+  //test 
+  string tocrypt = text;
+  //----
+
+  //remove spacing and all toUpper
+for (char e:tocrypt)
+    {
+      (e == ' ') ? tobecrypted += "" : tobecrypted += toupper (e);
+
+    }
+
+  //put tocypher into a char table
+  char tocypher[tobecrypted.length () + 1];
+  strcpy (tocypher, tobecrypted.c_str ());
+ 
+
+
+  vector < int > keytonumber;
+
+  for (int i = 0; i < key.length(); i++)
+    {
+          for (int j = 0; j < 26; j++)
+    	{
+    	  if (alphabet[j] == key[i])
+    	  {
+    	    keytonumber.push_back (j);
+    	  }
+    
+    	}
+
+    }
+     
+
+  vector < int > texttonumber;
+
+  for (int i = 0; i < tobecrypted.length(); i++)
+    {
+          for (int j = 0; j < 26; j++)
+    	{
+    	  if (alphabet[j] == tobecrypted[i])
+    	  {
+    	    texttonumber.push_back (j);
+    	  }
+    
+    	}
+
+    }
+    
+ 
+   
+    // crypting process
+      vector < int > cyphered;
+      
+      for(int i = 0; i < tobecrypted.length(); i++)
+      {
+          cyphered.push_back((texttonumber[i]+keytonumber[i%(key.length())])%26);
+          
+      }
+      
+        for (int i = 0; i < cyphered.size(); i++)
+    {
+     
+        fullycrypted +=alphabet[cyphered[i]];
+
+    }
+
+
+
+  return fullycrypted;
+}
+
+int
+main ()
+{
+
+
+  char albet[26];
+  //     int var=1;
+  string message;
+
+  for (int ch = 'a'; ch <= 'z'; ch++)
+    {
+      //do ch-'a' because we start at index 0
+      albet[ch - 'a'] = char (ch);
+
+    }
+
+
+  //cout<<"memee";
+
+  cout << crypt ("Ceci est une phrase de test", "ABCD");
+
+  return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/******************************************************************************
+
+                              Online C++ Compiler.
+               Code, Compile, Run and Debug C++ program online.
+Write your code in this editor and press "Run" button to compile and execute it.
+
+*******************************************************************************/
+
+#include <iostream>
+#include <vector>  
+using namespace std;
+
+ string decypher(string ciphertext,string keyword)
+   {
+       string plain="";
+       
+       char alphabet[26]={'A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+       
+         //remove spacing and all toUpper
+
+
+
+       vector <int> numcypher;
+       vector <int> numcl;
+       vector <int> numkey;
+        
+        for(int i=0;i<ciphertext.length();i++)
+       {
+           numcypher.push_back((ciphertext[i]-'A')%26);
+       }
+       
+       for(int i=0;i<keyword.length();i++)
+       {
+           numkey.push_back((keyword[i]-'A')%26);
+       }
+       
+           for(int i=0;i<ciphertext.length();i++)
+       {
+           numcl.push_back( ((numcypher[i]-numkey[i%keyword.length()])%26 +26)%26 );
+       }
+       
+        for (int i = 0; i < numcl.size(); i++)
+        {
+         
+            plain +=alphabet[numcl[i]];
+    
+        }
+       
+       
+       return plain;
+       
+   }
+
+int main()
+{
+  
+   
+   cout<<decypher("CFELETVXNFRKRBUHDFVHSU","ABCD");
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+ string decypher(string ciphertext,string keyword)
+   {
+       string plain="";
+
+       char alphabet[26]={'A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+
+         //remove spacing and all toUpper
+
+
+
+       vector <int> numcypher;
+       vector <int> numcl;
+       vector <int> numkey;
+
+        for(int i=0;i<ciphertext.length();i++)
+       {
+           numcypher.push_back((ciphertext[i]-'A')%26);
+       }
+
+       for(int i=0;i<keyword.length();i++)
+       {
+           numkey.push_back((keyword[i]-'A')%26);
+       }
+
+           for(int i=0;i<ciphertext.length();i++)
+       {
+           numcl.push_back( ((numcypher[i]-numkey[i%keyword.length()])%26 +26)%26 );
+       }
+
+        for (int i = 0; i < numcl.size(); i++)
+        {
+
+            plain +=alphabet[numcl[i]];
+
+        }
+
+
+       return plain;
+
+   }
+
+
+
+
+int main()
+{
+
+    cout<<decypher("CFELETVXNFRKRBUHDFVHSU", "ABC");
+
+     char alphabet[26]={'A','B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R',
+'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+
+
+    int key[3];
+    string keyw="";
+
+    for(int i=0 ; i<26 ; i++)
+    {
+        for(int j=0 ; j<26 ; j++)
+        {
+                for(int k=0 ; k<26 ; k++)
+            {
+                  
+
+                       key[0]=i;
+                       key[1]=j;
+                       key[2]=k;
+                       keyw+=alphabet[i];
+                       keyw+=alphabet[j];
+                       keyw+=alphabet[k];
+                       cout<<decypher("CFEIFUTVPEQJRBUEEGTFUT",keyw)+" "+keyw;
+                        if(decypher("CFEIFUTVPEQJRBUEEGTFUT", "ABC")== "CECIESTUNEPHRASEDETEST")
+                            {cout<<"********here********";}
+                       cout<<endl;
+                       keyw="";
+                    
+                }
+
+
+        }
+
+    }
+
+
+    return 0;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
